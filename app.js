@@ -19,8 +19,22 @@ function postToTrello(listId, command, text, user_name, cb) {
 		'name' : name_and_label.shift() + ' (@' + user_name + ')',
 		'labels' : name_and_label.shift()
 	};
+	
+		if (card_data.labels == "bug") {
+			var idLabels = 56a39dabfb396fe70686c100;
+		} else if (card.data.labels == "chore") {
+			var idLabels = 56a39ffcfb396fe70686c76e;
+		} else {
+			var idLabels = 56a39e63fb396fe70686c30e;	
+		}
+	}
+	
+	var card_info = {
+		'name' : card_data.name,
+		'idLabels' : idLabels
+	};
 
-	trello.post('/1/lists/' + listId + '/cards', card_data, cb);
+	trello.post('/1/lists/' + listId + '/cards', card_info, cb);
 }
 
 app.post('/*', function(req, res, next) {
