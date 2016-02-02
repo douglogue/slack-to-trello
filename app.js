@@ -13,7 +13,7 @@ function postToTrello(listId, command, text, user_name, cb) {
     throw new Error('Format is ' + command + ' name | description(optional)');
   }
 
-  var name_and_desc = text.split('|');
+  var name_and_desc = text.split('| ');
 
 	var card_data = {
 		'name' : name_and_desc.shift() + ' (@' + user_name + ')',
