@@ -17,7 +17,7 @@ function postToTrello(listId, command, text, user_name, cb) {
 
 	var card_data = {
 		'name' : name_and_label.shift() + ' (@' + user_name + ')',
-		'label' : name_and_label.shift()
+		'labels' : name_and_label.shift()
 	};
 
 	trello.post('/1/lists/' + listId + '/cards', card_data, cb);
