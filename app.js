@@ -20,21 +20,21 @@ function postToTrello(listId, command, text, user_name, cb) {
 		'labels' : name_and_label.shift()
 	};
 	
-		if (card_data['labels'] == "bug") {
+		if (card_data[1] == "bug") {
 			var idLabels = 56a39dabfb396fe70686c100;
-		} else if (card_data['labels'] == "chore") {
+		} else if (card_data[1] == "chore") {
 			var idLabels = 56a39ffcfb396fe70686c76e;
 		} else {
 			var idLabels = 56a39e63fb396fe70686c30e;	
 		}
 	}
 	
-	var card_info = {
-		'name' : card_data['name'],
+	var card_data = {
+		'name' : name_and_label.shift() + ' (@' + user_name + ')',
 		'idLabels' : idLabels
 	};
 
-	trello.post('/1/lists/' + listId + '/cards', card_info, cb);
+	trello.post('/1/lists/' + listId + '/cards', card_data, cb);
 }
 
 app.post('/*', function(req, res, next) {
