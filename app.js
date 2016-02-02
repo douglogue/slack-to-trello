@@ -10,28 +10,14 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 function postToTrello(listId, command, text, user_name, cb) {
   if (text == undefined || text == null || text == "") {
-    throw new Error('Format is ' + command + ' card title | label(bug, chore, or feature)');
+    throw new Error('Format is ' + command + ' name | description(optional)');
   }
 
-  var name_and_label = text.split('|');
+  var name_and_desc = text.split('|');
 
 	var card_data = {
-		'name' : name_and_label.shift() + ' (@' + user_name + ')',
-		'labels' : name_and_label.shift()
-	};
-	
-		if (card_data[1] == "bug") {
-			var idLabels = 56a39dabfb396fe70686c100;
-		} else if (card_data[1] == "chore") {
-			var idLabels = 56a39ffcfb396fe70686c76e;
-		} else {
-			var idLabels = 56a39e63fb396fe70686c30e;	
-		}
-	}
-	
-	var card_data = {
-		'name' : name_and_label.shift() + ' (@' + user_name + ')',
-		'idLabels' : idLabels
+		'name' : name_and_desc.shift() + ' (@' + user_name + ')',
+		'labels' : name_and_desc.shift()
 	};
 
 	trello.post('/1/lists/' + listId + '/cards', card_data, cb);
