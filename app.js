@@ -15,9 +15,22 @@ function postToTrello(listId, command, text, user_name, cb) {
 
   var name_and_desc = text.split('| ');
 
-	var card_data = {
+	var user_input = {
 		'name' : name_and_desc.shift() + ' (@' + user_name + ')',
 		'labels' : name_and_desc.shift()
+	};
+
+	if(user_input['labels'] == "bug") {
+		var label = "red";
+	} else if(user_input['labels'] == "feature") {
+		var label = "green";
+	} else {
+		var label = "yellow";	
+	}
+
+	var card_data = {
+		'name' : user_input['name'],
+		'labels' : label
 	};
 
 	trello.post('/1/lists/' + listId + '/cards', card_data, cb);
